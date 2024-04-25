@@ -1,0 +1,12 @@
+<div class="container">
+  <p style="color: green"><%= notice %></p>
+
+  <%= render @post %>
+
+  <div>
+    <a href="<%= edit_post_path %>" class="btn btn-secondary">Edit this post</a>
+    <a href="<%= posts_path %>" class="btn btn-secondary">Back to Posts</a>
+
+    <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-danger mt-3" %>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="container">
+  <br /><br />
+  <div id="<%= dom_id post %>" class="col-md-12">
+    <article class="blog-post">
+      <h4 class="display-6 link-body-emphasis mb-1">
+        <%= post.title %>
+      </h4>
+      <% post.content.split("\n\n").each do |paragraph| %>
+        <p>
+          <%= paragraph %>
+        </p>
+      <% end %>
+    </article>
+  </div>
+</div>

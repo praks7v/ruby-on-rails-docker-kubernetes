@@ -1,0 +1,43 @@
+#blog-postgres-statefulset.yml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-postgres
+spec:
+  serviceName: blog-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-postgres
+  template:
+    metadata:
+      labels:
+        app: blog-postgres
+    spec:
+      containers:
+        - name: db
+          image: postgres:14.2-alpine
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-name
+                  key: db-name
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-username
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: password
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

@@ -1,0 +1,53 @@
+#blog-web-deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-web
+  template:
+    metadata:
+      labels:
+        app: blog-web
+    spec:
+      containers:
+        - name: blog-web
+          image: blog-web:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: POSTGRES_HOST
+              value: blog-postgres
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-name
+                  key: db-name
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-username
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: password
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rails-master-key
+                  key: master-key
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
+            requests:
+              cpu: "0.2"
+              memory: "256Mi"
