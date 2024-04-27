@@ -23,7 +23,7 @@ spec:
             - name: RAILS_ENV
               value: production
             - name: POSTGRES_HOST
-              value: blog-postgres
+              value: blog-postgres-service
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
