@@ -34,6 +34,7 @@ services:
         condition: service_healthy
     ports:
       - "4000:3000"
+    image: blog-web:v1
 
 volumes:
   postgres_data: {}
