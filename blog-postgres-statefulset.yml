@@ -21,17 +21,17 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-name
+                  name: postgres-credentials
                   key: db-name
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-username
+                  name: postgres-credentials
                   key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-password
+                  name: postgres-credentials
                   key: password
   volumeClaimTemplates:
     - metadata:
