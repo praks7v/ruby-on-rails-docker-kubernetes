@@ -1,0 +1,23 @@
+#application.yml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blogapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/praks7v/argocd-blog-app-config.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blogapp
+
+  syncPolicy:
+    syncOptions: 
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
